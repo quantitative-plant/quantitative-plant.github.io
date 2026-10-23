@@ -1,0 +1,141 @@
+---
+import { Image, getImage } from 'astro:assets';
+import { render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Logo from './Logo.astro';
+import ToolCard from './ToolCard.astro';
+import { ORGANS, PLATFORMS, LICENSES, AUTOMATION, STATUS, SCALES, MODEL_CATEGORIES, label } from '../data/vocab';
+import { doiUrl, pmidUrl } from '../lib/content';
+import { editUrl, issueUrl } from '../config';
+interface Props { entry: any; collection: 'tools' | 'datasets' | 'models'; base: string; section: string; related?: any[]; }
+const { entry, collection, base, section, related = [] } = Astro.props;
+const d = entry.data;
+const { Content } = await render(entry);
+const isSoftware = collection !== 'datasets';
+const lic = (d.license ?? []).map((l: string) => label(LICENSES, l)).concat(d.license_name ? [d.license_name] : []);
+const facts: [string, string[] | string | undefined][] = collection === 'models'
+  ? [
+      ['Model type', d.category.map((c: string) => label(MODEL_CATEGORIES, c))],
+      ['Plant part', d.organs.map((o: string) => label(ORGANS, o))],
+      ['Scale', d.scales.map((s: string) => label(SCALES, s))],
+      ['Predicts', d.predictions],
+      ['Species', d.species],
+      ['Languages', d.languages],
+      ['Platforms', d.platforms.map((p: string) => label(PLATFORMS, p))],
+      ['License', lic],
+      ['Integrated in', d.integration],
+    ]
+  : isSoftware
+  ? [
+      ['Plant organ', d.organs.map((o: string) => label(ORGANS, o))],
+      ['Measurements', d.measurements],
+      ['Automation', d.automation.map((a: string) => label(AUTOMATION, a))],
+      ['Platforms', d.platforms.map((p: string) => label(PLATFORMS, p))],
+      ['Requires', d.requires],
+      ['License', lic],
+      ['Input images', d.input_formats],
+      ['Output formats', d.export_formats],
+      ['Species', d.species],
+    ]
+  : [
+      ['Plant organ', d.organs.map((o: string) => label(ORGANS, o))],
+      ['Species', d.species],
+      ['Images', d.n_images?.toLocaleString('en') ?? d.n_images_text],
+      ['Ground truth', d.ground_truth ? 'Yes' : 'No'],
+    ];
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': isSoftware ? 'SoftwareApplication' : 'Dataset',
+  name: d.title,
+  url: new URL(`${base}/${entry.id}`, Astro.site).href,
+  ...(d.website && { sameAs: d.website }),
+  ...(d.developer && { creator: { '@type': 'Organization', name: d.developer } }),
+  ...(isSoftware && { applicationCategory: collection === 'models' ? 'Plant modelling' : 'Scientific image analysis', operatingSystem: d.platforms.join(', ') }),
+  ...(d.doi && { citation: doiUrl(d.doi) }),
+};
+const gallery = await Promise.all(d.gallery.map(async (g: any) => ({ ...g, full: (await getImage({ src: g.src, width: Math.min(1600, g.src.width), format: 'webp' })).src })));
+const summary = (entry.body ?? '').split('\n').find((l: string) => l.trim().length > 40)?.slice(0, 160);
+---
+<Base title={d.title} description={summary} jsonld={jsonld}>
+  <div class="container">
+    <div class="detail">
+      <article>
+        <nav class="breadcrumbs"><a href={base}>{section}</a> / {d.title}</nav>
+        {d.draft && <p class="notice">Draft — hidden in production.</p>}
+        <div class="detail-head">
+          <Logo src={d.logo} title={d.title} size={72} />
+          <div>
+            <h1 data-pagefind-meta="title">{d.title}</h1>
+            {d.developer && <div class="muted">{d.developer}</div>}
+            {d.status && d.status !== 'unverified' && <span class={`badge ${d.status}`}>{label(STATUS, d.status)}</span>}
+          </div>
+        </div>
+        <div class="actions">
+          {d.website && <a class="btn primary" href={d.website} rel="noopener">Website ↗</a>}
+          {d.download && d.download !== d.website && <a class="btn" href={d.download} rel="noopener">Download ↗</a>}
+          {d.source_code && <a class="btn" href={d.source_code} rel="noopener">Source code ↗</a>}
+          {d.doi && <a class="btn" href={doiUrl(d.doi)} rel="noopener">Paper (DOI) ↗</a>}
+          {!d.doi && d.pmid && <a class="btn" href={pmidUrl(d.pmid)} rel="noopener">Paper (PubMed) ↗</a>}
+          {!d.doi && !d.pmid && d.paper_url && <a class="btn" href={d.paper_url} rel="noopener">Paper ↗</a>}
+        </div>
+        {d.status === 'deprecated' && <p class="notice">This resource is deprecated or no longer available. It is kept for reference and reproducibility.</p>}
+        {d.status === 'unverified' && (
+          <p class="notice">This entry has not been verified recently. Links or details may be outdated —
+            <a href={issueUrl('report-problem.yml', `[${d.title}] `)}>report a problem</a>.</p>
+        )}
+        <div class="prose"><Content /></div>
+        {d.description_source && <p class="muted" style="font-size:.85rem">Description source: {d.description_source}</p>}
+
+        {d.gallery.length > 0 && (
+          <>
+            <h2>Screenshots</h2>
+            <div class="gallery">
+              {gallery.map((g: any) => (
+                <figure>
+                  <a href={g.full}><Image src={g.src} alt={g.caption ?? `${d.title} screenshot`} width={640} loading="lazy" /></a>
+                  {g.caption && <figcaption>{g.caption}</figcaption>}
+                </figure>
+              ))}
+            </div>
+          </>
+        )}
+
+        {(d.citation || d.doi || d.pmid) && (
+          <>
+            <h2>Reference</h2>
+            <blockquote>
+              {d.citation && <>{d.citation}<br /></>}
+              {[d.doi && <a href={doiUrl(d.doi)}>doi:{d.doi}</a>, d.pmid && <a href={pmidUrl(d.pmid)}>PMID {d.pmid}</a>].filter(Boolean).map((l, i) => <>{i > 0 && ' · '}{l}</>)}
+            </blockquote>
+          </>
+        )}
+
+        {related.length > 0 && (
+          <>
+            <h2>Similar tools</h2>
+            <div class="grid">{related.map((r) => <ToolCard entry={r} base={base} />)}</div>
+          </>
+        )}
+      </article>
+
+      <aside class="facts">
+        <dl>
+          {facts.filter(([, v]) => v && (!Array.isArray(v) || v.length)).map(([k, v]) => (
+            <div>
+              <dt>{k}</dt>
+              <dd>{Array.isArray(v) ? <ul class="chips">{v.map((x) => <li class="chip">{x}</li>)}</ul> : v}</dd>
+            </div>
+          ))}
+          {d.added && <div><dt>Listed since</dt><dd>{d.added.toISOString().slice(0, 10)}</dd></div>}
+          {d.last_checked && <div><dt>Last checked</dt><dd>{d.last_checked.toISOString().slice(0, 10)}</dd></div>}
+        </dl>
+        <hr style="border:0;border-top:1px solid var(--border);margin:1rem 0" />
+        <div style="display:flex;flex-direction:column;gap:.4rem;font-size:.88rem">
+          <a href={editUrl(collection, entry.id)}>✎ Suggest an edit on GitHub</a>
+          <a href={issueUrl('report-problem.yml', `[${d.title}] `)}>⚑ Report a problem</a>
+          <a href={`/api/${collection}/${entry.id}.json`}>{'{ }'} JSON</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</Base>

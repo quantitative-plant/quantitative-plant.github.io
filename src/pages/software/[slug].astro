@@ -1,0 +1,10 @@
+---
+import Detail from '../../components/Detail.astro';
+import { getTools, similar } from '../../lib/content';
+export async function getStaticPaths() {
+  const all = await getTools();
+  return all.map((entry) => ({ params: { slug: entry.id }, props: { entry, related: similar(all, entry) } }));
+}
+const { entry, related } = Astro.props;
+---
+<Detail entry={entry} collection="tools" base="/software" section="Software" related={related} />

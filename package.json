@@ -1,0 +1,21 @@
+{
+  "name": "quantitative-plant",
+  "type": "module",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && pagefind --site dist",
+    "preview": "astro preview",
+    "check": "astro check",
+    "cms": "npx decap-server@3.11.3",
+    "migrate": "python3 scripts/migrate_kirby.py <kirby>/content src/content && node scripts/optimize-images.mjs src/content"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^5.18.2",
+    "pagefind": "^1.5.2",
+    "sharp": "^0.35.5"
+  }
+}

@@ -1,0 +1,8 @@
+---
+import { Image } from 'astro:assets';
+interface Props { src?: any; title: string; size?: number; }
+const { src, title, size = 48 } = Astro.props;
+---
+{src
+  ? <Image class="card-logo" src={src} alt={`${title} logo`} width={size * 2} height={size * 2} style={`width:${size}px;height:${size}px`} loading="lazy" />
+  : <span class="card-logo placeholder" style={`width:${size}px;height:${size}px`} aria-hidden="true">{title.slice(0, 2)}</span>}

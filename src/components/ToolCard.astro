@@ -1,0 +1,36 @@
+---
+import Logo from './Logo.astro';
+import { ORGANS, MODEL_CATEGORIES, label } from '../data/vocab';
+interface Props { entry: any; base: string; facetData?: Record<string, string[]>; }
+const { entry, base, facetData } = Astro.props;
+const d = entry.data;
+const summary0 = (entry.body ?? '').replace(/[#*_>`\[\]]|\(http[^)]*\)/g, '').split('\n').find((l: string) => l.trim().length > 40)?.trim() ?? '';
+const summary = summary0 || (d.category?.length ? d.category.map((c: string) => label(MODEL_CATEGORIES, c)).join(' · ') : '');
+const facets = facetData ?? {
+  organ: d.organs, measure: d.measurements ?? [], platform: d.platforms ?? [],
+  license: d.license ?? [], automation: d.automation ?? [], status: d.status ? [d.status] : [],
+};
+const text = [d.title, d.developer, ...d.organs, ...(d.measurements ?? []), ...(d.predictions ?? []), ...(d.category ?? []), ...(d.languages ?? []), ...d.species, summary].join(' ').toLowerCase();
+---
+<a class="card" href={`${base}/${entry.id}`}
+  data-item
+  data-title={d.title.toLowerCase()}
+  data-added={d.added ? d.added.toISOString().slice(0, 10) : ''}
+  data-text={text}
+  data-facets={JSON.stringify(facets)}>
+  <div class="card-head">
+    <Logo src={d.logo} title={d.title} />
+    <div>
+      <h3>{d.title}</h3>
+      {d.developer && <div class="dev">{d.developer}</div>}
+    </div>
+  </div>
+  {summary && <p>{summary}</p>}
+  <ul class="chips">
+    {d.organs.map((o: string) => <li class="chip accent">{label(ORGANS, o)}</li>)}
+    {(d.measurements ?? d.predictions ?? []).slice(0, 3).map((m: string) => <li class="chip">{m}</li>)}
+    {d.n_images ? <li class="chip">{d.n_images.toLocaleString('en')} images</li> : d.n_images_text && <li class="chip">{d.n_images_text} images</li>}
+    {d.status === 'deprecated' && <li class="chip">deprecated</li>}
+    {d.ground_truth && <li class="chip">ground truth</li>}
+  </ul>
+</a>

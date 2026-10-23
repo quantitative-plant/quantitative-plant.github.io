@@ -1,0 +1,24 @@
+---
+import Base from '../../layouts/Base.astro';
+import Catalog from '../../components/Catalog.astro';
+import { getTools } from '../../lib/content';
+import { ORGANS, PLATFORMS, LICENSES, AUTOMATION, STATUS } from '../../data/vocab';
+const tools = await getTools();
+const facets = [
+  { key: 'organ', title: 'Plant organ', get: (e: any) => e.data.organs, dict: ORGANS, open: true },
+  { key: 'measure', title: 'Measurement', get: (e: any) => e.data.measurements, open: true },
+  { key: 'automation', title: 'Automation', get: (e: any) => e.data.automation, dict: AUTOMATION },
+  { key: 'platform', title: 'Platform', get: (e: any) => e.data.platforms, dict: PLATFORMS },
+  { key: 'license', title: 'License', get: (e: any) => e.data.license, dict: LICENSES },
+  { key: 'status', title: 'Status', get: (e: any) => [e.data.status], dict: STATUS },
+];
+---
+<Base title="Software" description={`Browse ${tools.length} software tools for plant image analysis, filterable by organ, trait, platform and license.`}>
+  <div class="container">
+    <div style="padding-top:2rem">
+      <h1>Software</h1>
+      <p class="muted" style="margin:0">Tools to extract quantitative traits from plant images — from single cells to canopies.</p>
+    </div>
+    <Catalog entries={tools} base="/software" facets={facets} noun="tools" />
+  </div>
+</Base>

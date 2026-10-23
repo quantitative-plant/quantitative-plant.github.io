@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Search">
+  <div class="container narrow" style="padding:2rem 16px 3rem">
+    <h1>Search</h1>
+    <p class="muted">Full-text search across all tools, datasets and models.</p>
+    <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+    <div id="search"></div>
+    <script is:inline src="/pagefind/pagefind-ui.js"></script>
+    <script is:inline>
+      window.addEventListener('DOMContentLoaded', () => {
+        const ui = new PagefindUI({ element: '#search', showSubResults: false, showImages: false, resetStyles: false });
+        const q = new URLSearchParams(location.search).get('q');
+        if (q) ui.triggerSearch(q);
+      });
+    </script>
+    <style is:global>
+      #search { --pagefind-ui-primary: var(--accent); --pagefind-ui-text: var(--text); --pagefind-ui-background: var(--surface); --pagefind-ui-border: var(--border); --pagefind-ui-tag: var(--surface-2); --pagefind-ui-font: var(--font); }
+    </style>
+    <noscript>Search needs JavaScript. You can also <a href="/software">browse the catalogue</a>.</noscript>
+  </div>
+</Base>

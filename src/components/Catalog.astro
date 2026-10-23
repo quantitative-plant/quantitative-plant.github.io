@@ -1,0 +1,120 @@
+---
+import ToolCard from './ToolCard.astro';
+import { facet } from '../lib/content';
+import { label } from '../data/vocab';
+interface Facet { key: string; title: string; get: (e: any) => string[]; dict?: Record<string, string>; open?: boolean; }
+interface Props { entries: any[]; base: string; facets: Facet[]; noun: string; }
+const { entries, base, facets, noun } = Astro.props;
+const groups = facets.map((f) => ({ ...f, values: facet(entries, f.get) }));
+---
+<div class="catalog" data-catalog>
+  <aside class="filters" aria-label="Filters">
+    <button class="btn filters-toggle" type="button" data-toggle-filters>Filters</button>
+    {groups.map((g) => (
+      <details class="facet" open={g.open}>
+        <summary>{g.title}</summary>
+        <div class="opts">
+          {g.values.map(([v, n]) => (
+            <label>
+              <input type="checkbox" name={g.key} value={v} />
+              {g.dict ? label(g.dict, v) : v}
+              <span class="n" data-count={`${g.key}:${v}`}>{n}</span>
+            </label>
+          ))}
+        </div>
+      </details>
+    ))}
+    <p class="muted facet-note" style="font-size:.8rem;margin-top:1rem">Within a group, filters combine with OR; across groups with AND.</p>
+  </aside>
+  <section>
+    <div class="toolbar">
+      <label class="search">
+        <span aria-hidden="true">⌕</span>
+        <span class="sr-only">Search {noun}</span>
+        <input type="search" data-q placeholder={`Search ${entries.length} ${noun} by name, trait, species…`} autocomplete="off" />
+      </label>
+      <select data-sort aria-label="Sort">
+        <option value="az">A → Z</option>
+        <option value="za">Z → A</option>
+        <option value="new">Newest first</option>
+        <option value="old">Oldest first</option>
+      </select>
+    </div>
+    <div class="active-filters" data-active></div>
+    <p class="muted" style="margin:-.3rem 0 .8rem;font-size:.9rem"><span data-count-total>{entries.length}</span> {noun}</p>
+    <div class="grid" data-grid>
+      {entries.map((e) => <ToolCard entry={e} base={base} facetData={Object.fromEntries(facets.map((f) => [f.key, f.get(e)]))} />)}
+    </div>
+    <div class="empty" data-empty hidden>No {noun} match these filters. <button class="btn" type="button" data-reset>Clear filters</button></div>
+  </section>
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-catalog]')!;
+  const grid = root.querySelector<HTMLElement>('[data-grid]')!;
+  const items = [...grid.querySelectorAll<HTMLElement>('[data-item]')].map((el) => ({
+    el, title: el.dataset.title!, added: el.dataset.added!, text: el.dataset.text!,
+    facets: JSON.parse(el.dataset.facets!) as Record<string, string[]>,
+  }));
+  const q = root.querySelector<HTMLInputElement>('[data-q]')!;
+  const sort = root.querySelector<HTMLSelectElement>('[data-sort]')!;
+  const boxes = [...root.querySelectorAll<HTMLInputElement>('input[type=checkbox]')];
+  const active = root.querySelector<HTMLElement>('[data-active]')!;
+
+  // état <-> URL (?organ=leaf&measure=length&q=root&sort=new) pour des liens partageables
+  const params = new URLSearchParams(location.search);
+  q.value = params.get('q') ?? '';
+  sort.value = params.get('sort') ?? 'az';
+  boxes.forEach((b) => (b.checked = params.getAll(b.name).includes(b.value)));
+
+  function selected() {
+    const s: Record<string, string[]> = {};
+    boxes.filter((b) => b.checked).forEach((b) => (s[b.name] ??= []).push(b.value));
+    return s;
+  }
+  const matches = (it: (typeof items)[0], sel: Record<string, string[]>, terms: string[], skip?: string) =>
+    terms.every((t) => it.text.includes(t)) &&
+    Object.entries(sel).every(([k, vals]) => k === skip || vals.some((v) => (it.facets[k] ?? []).includes(v)));
+
+  function apply() {
+    const sel = selected();
+    const terms = q.value.toLowerCase().split(/\s+/).filter(Boolean);
+    const visible = items.filter((it) => matches(it, sel, terms));
+    const order = [...items].sort((a, b) => {
+      switch (sort.value) {
+        case 'za': return b.title.localeCompare(a.title);
+        case 'new': return b.added.localeCompare(a.added);
+        case 'old': return a.added.localeCompare(b.added);
+        default: return a.title.localeCompare(b.title);
+      }
+    });
+    order.forEach((it) => { it.el.hidden = !visible.includes(it); grid.appendChild(it.el); });
+    root.querySelector('[data-count-total]')!.textContent = String(visible.length);
+    root.querySelector<HTMLElement>('[data-empty]')!.hidden = visible.length > 0;
+    // compteurs de facettes « si je coche aussi cette case »
+    boxes.forEach((b) => {
+      const n = items.filter((it) => matches(it, sel, terms, b.name) && (it.facets[b.name] ?? []).includes(b.value)).length;
+      const span = b.parentElement!.querySelector('.n')!;
+      span.textContent = String(n);
+      b.parentElement!.classList.toggle('zero', n === 0 && !b.checked);
+    });
+    active.replaceChildren(...boxes.filter((b) => b.checked).map((b) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = `${b.parentElement!.textContent!.replace(/\d+\s*$/, '').trim()} ✕`;
+      btn.onclick = () => { b.checked = false; apply(); };
+      return btn;
+    }));
+    const p = new URLSearchParams();
+    if (q.value) p.set('q', q.value);
+    if (sort.value !== 'az') p.set('sort', sort.value);
+    boxes.filter((b) => b.checked).forEach((b) => p.append(b.name, b.value));
+    history.replaceState(null, '', p.toString() ? `?${p}` : location.pathname);
+  }
+  q.addEventListener('input', apply);
+  sort.addEventListener('change', apply);
+  boxes.forEach((b) => b.addEventListener('change', apply));
+  root.querySelector('[data-reset]')?.addEventListener('click', () => { boxes.forEach((b) => (b.checked = false)); q.value = ''; apply(); });
+  root.querySelector('[data-toggle-filters]')?.addEventListener('click', () => root.querySelector('.filters')!.classList.toggle('open'));
+  apply();
+</script>

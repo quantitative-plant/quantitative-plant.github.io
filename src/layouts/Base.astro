@@ -1,0 +1,65 @@
+---
+import '../styles/global.css';
+import { SITE, repoUrl } from '../config';
+interface Props { title?: string; description?: string; jsonld?: object; }
+const { title, description = SITE.tagline, jsonld } = Astro.props;
+const fullTitle = title ? `${title} · ${SITE.title}` : `${SITE.title} — software, datasets & models for plant science`;
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const nav = [
+  ['/software', 'Software'], ['/dataset', 'Datasets'], ['/model', 'Models'],
+  ['/api', 'API'], ['/about', 'About'],
+];
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+  <link rel="alternate" type="application/rss+xml" title={SITE.title} href="/rss.xml" />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#1f6f43" />
+  {jsonld && <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />}
+</head>
+<body>
+  <a class="sr-only" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/"><img src="/logo.svg" alt="" />{SITE.title}</a>
+      <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+      <nav class="nav" id="nav" aria-label="Main">
+        {nav.map(([href, text]) => (
+          <a href={href} aria-current={path.startsWith(href) ? 'page' : undefined}>{text}</a>
+        ))}
+        <a class="cta" href="/submit">Submit</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main" data-pagefind-body={Astro.url.pathname.split('/').length > 2 && !Astro.url.pathname.startsWith('/api') ? '' : undefined}>
+    <slot />
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <div>
+        <strong>{SITE.title}</strong> · since {SITE.since}<br />
+        Data under <a href="https://opendatacommons.org/licenses/by/1-0/">ODC-By 1.0</a> ·
+        <a href="/about#cite">How to cite</a>
+      </div>
+      <div>
+        <a href={repoUrl}>GitHub</a> · <a href="/api">API</a> · <a href="/rss.xml">RSS</a> ·
+        <a href={`mailto:${SITE.contact}`}>Contact</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    const b = document.querySelector('.menu-btn'), n = document.getElementById('nav');
+    b?.addEventListener('click', () => { const o = n!.classList.toggle('open'); b.setAttribute('aria-expanded', String(o)); });
+  </script>
+</body>
+</html>

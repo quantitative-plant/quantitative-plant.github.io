@@ -1,0 +1,8 @@
+---
+import Detail from '../../components/Detail.astro';
+import { getDatasets } from '../../lib/content';
+export async function getStaticPaths() {
+  return (await getDatasets()).map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+---
+<Detail entry={Astro.props.entry} collection="datasets" base="/dataset" section="Datasets" />

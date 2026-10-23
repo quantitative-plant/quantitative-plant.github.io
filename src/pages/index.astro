@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import ToolCard from '../components/ToolCard.astro';
+import { getTools, getDatasets, getModels, facet } from '../lib/content';
+import { ORGANS, label } from '../data/vocab';
+import { SITE } from '../config';
+const [tools, datasets, models] = await Promise.all([getTools(), getDatasets(), getModels()]);
+const recent = [...tools].filter((t) => t.data.added).sort((a, b) => +b.data.added! - +a.data.added!).slice(0, 4);
+const organs = facet(tools, (t) => t.data.organs).slice(0, 10);
+const openSource = tools.filter((t) => t.data.license.includes('open-source')).length;
+---
+<Base>
+  <div class="container">
+    <section class="hero">
+      <h1>Find the right tool, dataset or model for your plant research.</h1>
+      <p class="lead">{SITE.tagline}</p>
+      <form action="/search" class="search" style="max-width:640px" role="search">
+        <span aria-hidden="true">⌕</span>
+        <label class="sr-only" for="hero-q">Search</label>
+        <input id="hero-q" name="q" type="search" placeholder="e.g. root length, leaf area, FSPM, maize, water flux…" />
+        <button class="btn primary" type="submit">Search</button>
+      </form>
+      <div class="stats">
+        <div><strong>{tools.length}</strong><span>software tools</span></div>
+        <div><strong>{datasets.length}</strong><span>datasets</span></div>
+        <div><strong>{models.length}</strong><span>models</span></div>
+        <div><strong>{openSource}</strong><span>open-source tools</span></div>
+        <div><strong>{new Date().getFullYear() - SITE.since}</strong><span>years online</span></div>
+      </div>
+    </section>
+
+    <h2>Browse by organ</h2>
+    <ul class="chips" style="gap:.5rem">
+      {organs.map(([o, n]) => (
+        <li><a class="btn" href={`/software?organ=${o}`}>{label(ORGANS, o)} <span class="muted">{n}</span></a></li>
+      ))}
+    </ul>
+
+    <div class="entry-cards" style="margin-top:2rem">
+      <a class="card" href="/software"><h3>Software →</h3><p>{tools.length} tools, filterable by organ, trait, platform, license and automation level.</p></a>
+      <a class="card" href="/dataset"><h3>Datasets →</h3><p>{datasets.length} public image sets, many with ground-truth annotations for benchmarking.</p></a>
+      <a class="card" href="/model"><h3>Models →</h3><p>{models.length} plant models — functional–structural, crop and structural — filterable by scale and process.</p></a>
+      <a class="card" href="/submit"><h3>Contribute →</h3><p>Add your tool or dataset, or correct an entry — directly on GitHub or through a short form.</p></a>
+    </div>
+
+    <h2>Recently added</h2>
+    <div class="grid" style="margin-bottom:3rem">{recent.map((e) => <ToolCard entry={e} base="/software" />)}</div>
+  </div>
+</Base>

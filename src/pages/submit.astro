@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import { issueUrl, repoUrl, SITE } from '../config';
+---
+<Base title="Submit" description="Add a software tool, dataset or model to quantitative-plant.org, or correct an existing entry.">
+  <div class="container narrow" style="padding:2rem 16px 3rem">
+    <h1>Contribute</h1>
+    <p class="muted">The catalogue lives on GitHub and is curated by the community. Pick whichever route suits you — every submission is reviewed before it goes live.</p>
+
+    <h2>1 · Fill in a form <span class="muted" style="font-weight:400;font-size:1rem">(no Git knowledge needed)</span></h2>
+    <p>Each form opens a pre-structured GitHub issue. A curator turns it into an entry.</p>
+    <div class="actions">
+      <a class="btn primary" href={issueUrl('new-tool.yml')}>Submit a software tool</a>
+      <a class="btn" href={issueUrl('new-dataset.yml')}>Submit a dataset</a>
+      <a class="btn" href={issueUrl('report-problem.yml')}>Report a problem</a>
+    </div>
+
+    <h2>2 · Open a pull request</h2>
+    <ol>
+      <li>Copy <code>templates/tool/index.md</code> into a new folder <code>src/content/tools/&lt;your-tool&gt;/</code> (lowercase, dashes).</li>
+      <li>Fill in the YAML header — allowed values are listed in the template — and write a short description.</li>
+      <li>Add a <code>logo.png</code> and up to four screenshots in the same folder.</li>
+      <li>Open a pull request. An automatic check validates the fields and builds a preview.</li>
+    </ol>
+    <p><a href={repoUrl}>Go to the repository →</a></p>
+
+    <h2>Where to host your work</h2>
+    <p>Software: <a href="https://github.com">GitHub</a>, <a href="https://gitlab.com">GitLab</a>, archived with a DOI on <a href="https://zenodo.org">Zenodo</a> or <a href="https://www.softwareheritage.org">Software Heritage</a>.<br />
+    Datasets: <a href="https://zenodo.org">Zenodo</a>, <a href="https://figshare.com">figshare</a>, <a href="https://datadryad.org">Dryad</a>, <a href="https://idr.openmicroscopy.org">Image Data Resource</a>.</p>
+
+    <p class="muted">Questions? <a href={`mailto:${SITE.contact}`}>{SITE.contact}</a></p>
+  </div>
+</Base>

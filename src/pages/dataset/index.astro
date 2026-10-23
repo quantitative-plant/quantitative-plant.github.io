@@ -1,0 +1,22 @@
+---
+import Base from '../../layouts/Base.astro';
+import Catalog from '../../components/Catalog.astro';
+import { getDatasets } from '../../lib/content';
+import { ORGANS } from '../../data/vocab';
+const items = await getDatasets();
+const facets = [
+  { key: 'organ', title: 'Plant organ', get: (e: any) => e.data.organs, dict: ORGANS, open: true },
+  { key: 'species', title: 'Species', get: (e: any) => e.data.species, open: true },
+  { key: 'status', title: 'Status', get: (e: any) => [e.data.status === 'deprecated' ? 'deprecated' : 'available'] },
+  { key: 'gt', title: 'Annotations', get: (e: any) => [e.data.ground_truth ? 'with ground truth' : 'images only'], open: true },
+];
+---
+<Base title="Datasets" description="Public plant image datasets, with and without ground-truth annotations, for benchmarking and training image analysis methods.">
+  <div class="container">
+    <div style="padding-top:2rem">
+      <h1>Datasets</h1>
+      <p class="muted" style="margin:0">Public image collections to benchmark, validate and train analysis pipelines.</p>
+    </div>
+    <Catalog entries={items} base="/dataset" facets={facets} noun="datasets" />
+  </div>
+</Base>

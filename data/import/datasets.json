@@ -1,0 +1,426 @@
+{
+ "json": {
+ "datasets": {
+  "PlantVillage Dataset": {
+   "organ": "leaf",
+   "numimages": "over 50,000",
+   "groundtruth": "Yes",
+   "pmid": "https://arxiv.org/ftp/arxiv/papers/1511/1511.08060.pdf",
+   "doi": "",
+   "developer": "David P. Hughes & Marcel Salathé",
+   "download_link": "https://www.kaggle.com/datasets/emmarex/plantdisease",
+   "home_link": "https://plantvillage.psu.edu/"
+  },
+  "Arabidopsis thaliana Dataset": {
+   "organ": "rosette",
+   "numimages": ">1,000",
+   "groundtruth": "Yes",
+   "pmid": "",
+   "doi": "10.5281/zenodo.3946392",
+   "developer": "Schandry N.; K. Jandrasits K.; Hüther P; Weiser-Lobão C &  Becker C.",
+   "download_link": "https://zenodo.org/record/3946393",
+   "home_link": "https://zenodo.org/record/3946393"
+  },
+  "Plant Phenotyping Datasets": {
+   "organ": "shoot",
+   "numimages": "Variable",
+   "groundtruth": "Yes",
+   "pmid": "",
+   "doi": "",
+   "developer": "M. Minervini, A. Fischbach, H.Scharr, and S.A. Tsaftaris",
+   "download_link": "https://www.plant-phenotyping.org/datasets-download",
+   "home_link": "http://www.plant-phenotyping.org/datasets-home"
+  },
+  "Viability via FDA & PI in pollen grains Dataset": {
+   "organ": "Pollen",
+   "numimages": "62577",
+   "groundtruth": "No",
+   "pmid": "",
+   "doi": "https://doi.org/10.1007/s00497-020-00398-6",
+   "developer": "Lorenzo Ascari, Cristina Novara, Virginia Dusio, Ludovica Oddi, Consolata Siniscalco",
+   "download_link": "https://figshare.com/articles/dataset/FDAPI_pollen_image_dataset/12758750",
+   "home_link": "http://dx.doi.org/10.6084/m9.figshare.12758750"
+  },
+  "TERRA-REF Dataset": {
+   "organ": "All",
+   "numimages": "3569950",
+   "groundtruth": "yes",
+   "pmid": "",
+   "doi": "https://doi.org/10.5061/dryad.4b8gtht99",
+   "developer": "LeBauer David etc.",
+   "download_link": "https://datadryad.org/stash/dataset/doi:10.5061/dryad.4b8gtht99",
+   "home_link": "https://datadryad.org/stash/dataset/doi:10.5061/dryad.4b8gtht99"
+  },
+  "RhizoVision Crown Dataset": {
+   "organ": "root-system",
+   "numimages": "264",
+   "groundtruth": "Yes",
+   "pmid": "",
+   "doi": "https://doi.org/10.1094/PBIOMES-12-18-0062-R",
+   "developer": "Chakradhar Mattupalli, Anand Seethepalli, Larry M. York, Carolyn A. Young",
+   "download_link": "https://zenodo.org/records/2172832",
+   "home_link": "https://zenodo.org/records/2172832"
+  },
+  "Silene seeds Dataset": {
+   "organ": "Seed",
+   "numimages": "40",
+   "groundtruth": "No",
+   "pmid": "33339395",
+   "doi": "10.5281/zenodo.4025960",
+   "developer": "Emilio Cervantes",
+   "download_link": "https://zenodo.org/record/4025960#.X1yKoD9xeM8",
+   "home_link": "https://zenodo.org/record/4025960#.X1yKoD9xeM8"
+  },
+  "Chlorophyllosophy": {
+   "organ": "All",
+   "numimages": "1200+",
+   "groundtruth": "No",
+   "pmid": "",
+   "doi": "",
+   "developer": "Jennifer Deegan, Malcolm B. Wilkins",
+   "download_link": "http://www.chlorophyllosophy.co.uk/",
+   "home_link": "http://www.chlorophyllosophy.co.uk/"
+  },
+  "G2F Maize UAV Data": {
+   "organ": "shoot",
+   "numimages": "1500",
+   "groundtruth": "no",
+   "pmid": "",
+   "doi": "10.25739/4ext-5e97",
+   "developer": "Genomes to Fields project",
+   "download_link": "https://datacommons.cyverse.org/browse/iplant/home/shared/commons_repo/curated/tamu_corn_2017_CS17_G2F_20190305",
+   "home_link": "https://datacommons.cyverse.org/browse/iplant/home/shared/commons_repo/curated/tamu_corn_2017_CS17_G2F_20190305"
+  },
+  "Alfalfa root crowns": {
+   "organ": "root-system",
+   "numimages": "264",
+   "groundtruth": "yes",
+   "pmid": "",
+   "doi": "10.1094/PBIOMES-12-18-0062-R",
+   "developer": "Noble Institute",
+   "download_link": "https://zenodo.org/record/2172832#.Xk1IkRNKg1J",
+   "home_link": "https://zenodo.org/record/2172832#.Xk1IkRNKg1J"
+  },
+  "Root crown images of soybean and wheat": {
+   "organ": "root-system",
+   "numimages": "4400",
+   "groundtruth": "no",
+   "pmid": "",
+   "doi": "10.34133/2020/3074916",
+   "developer": "Noble Research Institute",
+   "download_link": "https://zenodo.org/record/3598638#.Xk1KCxNKg1J",
+   "home_link": "https://zenodo.org/record/3598638#.Xk1KCxNKg1J"
+  },
+  "Wheat spikelet dataset": {
+   "organ": "fruit",
+   "numimages": "500",
+   "groundtruth": "yes",
+   "pmid": "",
+   "doi": "10.1109/ICCVW.2017.241",
+   "developer": "School of Computer Science @ University of Nottingham",
+   "download_link": "https://plantimages.nottingham.ac.uk/collections.html",
+   "home_link": "https://plantimages.nottingham.ac.uk/collections.html"
+  },
+  "Wheat root system dataset": {
+   "organ": "root-system",
+   "numimages": "2614",
+   "groundtruth": "yes",
+   "pmid": "",
+   "doi": "10.1093/gigascience/gix084",
+   "developer": "",
+   "download_link": "http://gigadb.org/dataset/100346",
+   "home_link": "http://gigadb.org/dataset/100346"
+  },
+  "Apple leaf dataset": {
+   "organ": "leaf",
+   "numimages": "9000",
+   "groundtruth": "no",
+   "pmid": "",
+   "doi": "10.3389/fpls.2017.02185",
+   "developer": "",
+   "download_link": "https://figshare.com/articles/apple_leaf/5661919",
+   "home_link": "https://figshare.com/articles/apple_leaf/5661919"
+  },
+  "Maize lateral root dataset": {
+   "organ": "root-system",
+   "numimages": "79",
+   "groundtruth": "yes",
+   "pmid": "",
+   "doi": "10.1093/aob/mcx117",
+   "developer": "Key Laboratory of Arable Land Conservation",
+   "download_link": "https://figshare.com/articles/Lateral_roots_dataset/4836890/5",
+   "home_link": "https://figshare.com/articles/Lateral_roots_dataset/4836890/5"
+  },
+  "Sorghum shoot dataset, nitrogen treatments": {
+   "organ": "shoot",
+   "numimages": "96867",
+   "groundtruth": "yes",
+   "pmid": "31245669",
+   "doi": "10.1002/pld3.23",
+   "developer": "Danforth Center",
+   "download_link": "0000",
+   "home_link": "0000"
+  },
+  "3D Magnetic resonance images of barley roots": {
+   "organ": "root-system",
+   "numimages": "56",
+   "groundtruth": "no",
+   "pmid": "",
+   "doi": "10.1186/s13007-017-0252-9",
+   "developer": "IBG2 @ Forschungszentrum Juelich",
+   "download_link": "https://doi.ipk-gatersleben.de/DOI/e294d5d6-5408-4f6b-926b-9f12922cc3d3/f265da87-df02-4602-aeb4-7c3f5198d2af/2",
+   "home_link": "0000"
+  },
+  "Aberystwyth Leaf Evaluation Dataset": {
+   "organ": "rosette",
+   "numimages": "13000",
+   "groundtruth": "yes",
+   "pmid": "0000",
+   "doi": "10.5281/zenodo.168158",
+   "developer": "Aberystwyth University",
+   "download_link": "https://zenodo.org/record/168158#.WDcbSB8zpZU",
+   "home_link": "https://zenodo.org/record/168158#.WDcbSB8zpZU"
+  },
+  "Simulated root images": {
+   "organ": "root-system",
+   "numimages": "10000",
+   "groundtruth": "yes",
+   "pmid": "0000",
+   "doi": "10.5281/zenodo.61739",
+   "developer": "Guillaume Lobet",
+   "download_link": "https://zenodo.org/record/61739",
+   "home_link": "https://zenodo.org/record/61739"
+  },
+  "Root phenotyping data": {
+   "organ": "root-system",
+   "numimages": "98",
+   "groundtruth": "yes",
+   "pmid": "0000",
+   "doi": "10.5281/zenodo.50831",
+   "developer": "InBios - University of Liège",
+   "download_link": "https://zenodo.org/record/50831",
+   "home_link": "0000"
+  },
+  "Passiflora leaves dataset": {
+   "organ": "leaf",
+   "numimages": "3300",
+   "groundtruth": "yes",
+   "pmid": "0000",
+   "doi": "10.5524/100251",
+   "developer": "Chitwood Lab",
+   "download_link": "http://dx.doi.org/10.5524/100251",
+   "home_link": "0000"
+  },
+  "Maize Root Wisconsin Diversity Panel": {
+   "organ": "root-system",
+   "numimages": "85",
+   "groundtruth": "no",
+   "pmid": "0000",
+   "doi": "10.1104/pp.114.243519",
+   "developer": "A. Bucksch and A. Das",
+   "download_link": "https://oup.silverchair-cdn.com/oup/backfile/Content_public/Journal/plphys/166/2/10.1104_pp.114.243519/3/plphys_v166_2_470_s1.zip?Expires=1746707448&Signature=icqG-qG0I~QUoTGqcsPf8uCMERXkxRKdrmh56A-SsoMlx82v0Lts~A6E~R52ql4Il-2oT0I8RvcliChjea8W0mN0dxOm9xUfEwe8P1JFvgqATPRdV~LJ2INusdpqnWbFSvSZUjwLM6Wz7zQAbCTt1R3Qn763B349l~tv4BcChMspIig3MtX0o6FubuDLlgbCCJVgLeP19S~lyfv-B5LmC4CrChly1votSwstD1HmGodxrhEwqxxrNo1NJgjKx4aB3Rpgci0L6HcBSF03LB9SSsvxvlOPB5pzwHDaW7a91lzzL90F2mypjU80EO1PePLqWV9WHasX89PwLsaquCdXFw__&Key-Pair-Id=APKAIE5G5CRDK6RD3PGA",
+   "home_link": "0000"
+  },
+  "Root Cowpea Diversity panel": {
+   "organ": "root-system",
+   "numimages": "1500",
+   "groundtruth": "no",
+   "pmid": "0000",
+   "doi": "10.1104/pp.114.243519",
+   "developer": "",
+   "download_link": "https://oup.silverchair-cdn.com/oup/backfile/Content_public/Journal/plphys/166/2/10.1104_pp.114.243519/3/plphys_v166_2_470_s1.zip?Expires=1746707569&Signature=zlbxizP~pkJ~Vkc2-7fdNbeJbSJe-zmjO1yqEV2rOhERSVlK4uy~isoNDK~QbIzOYWlc~lPzaLd41AsyoFY7mCBXM6uO0gtd10WymxgbSsS9svM~lHkJ5gTS545zrEwZFO23mLjm9OkeqMovOzyBpvYqz2M5NLJaP~d~espSGWGaZqBgBnfktFQaq28A1w-E1ukcgEP22lJZFyTX8~EIC8xzkHWt7cy6uA4pU2uxeJqivZwNEijyC3DzfPJxCjM~KCjXWCFCt5QvCpodeuqIEpYffqpBa2s1dz3PLL5fS01~ZjlDMAM-Grke4Yfzkd9d3DFJ8r-YGQ6u88IQCzyLKw__&Key-Pair-Id=APKAIE5G5CRDK6RD3PGA",
+   "home_link": "0000"
+  },
+  "Rice in Gellan gum": {
+   "organ": "root-system",
+   "numimages": "2206",
+   "groundtruth": "no",
+   "pmid": "0000",
+   "doi": "10.1104/pp.109.150748",
+   "developer": "Benfey Lab @ Duke University",
+   "download_link": "https://oup.silverchair-cdn.com/oup/backfile/Content_public/Journal/plphys/152/3/10.1104_pp.109.150748/8/plphys_v152_3_1148_s1.zip?Expires=1746707830&Signature=Nh64abkykTaQugwFtJzeMkc1KTsouKeopkKI2yeX-mtU9W5UeQAvYPUkFiSEKG59nbV54nJfenV4YPY0fHkZeOc1fToRChukwcNXBzotxQbYcJJX1kHmE71Sp62gMcG6ufluQqeTaesyFCDWteHw7PaJdFrS3xV10V465N341Xez1x5kOJhMBobVHeN51MAsm5RVw1Wz-8wzvzhZ15bh--5S9oozN4H-8BKAWvECTyKQzcHO2x6GbY~OJ~6~c58W2AMV-RYSdMsEj7ehqj3wvqAlBi~YqDNhTbOTouANkG22dS7wBxMHFU1w0CTmeJsrIaAq3tksyNNyqfBFgbLnpw__&Key-Pair-Id=APKAIE5G5CRDK6RD3PGA",
+   "home_link": "0000"
+  },
+  "Arabidopsis cleared leaves [deptricated]": {
+   "organ": "leaf",
+   "numimages": "412",
+   "groundtruth": "no",
+   "pmid": "0000",
+   "doi": "https://doi.org/10.1186/s13007-016-0115-9",
+   "developer": "Benjamin Blonder",
+   "download_link": "0000",
+   "home_link": "0000"
+  },
+  "Smithsonian Cleared Leaf Collection [deptricated]": {
+   "organ": "leaf",
+   "numimages": "18126",
+   "groundtruth": "yes",
+   "pmid": "0000",
+   "doi": "0000",
+   "developer": "Jack A. Wolfe, U. S. Geological Survey",
+   "download_link": "0000",
+   "home_link": "0000"
+  },
+  "Cleared leaves from Costa Rica gradient [deptricated]": {
+   "organ": "leaf",
+   "numimages": "285",
+   "groundtruth": "no",
+   "pmid": "0000",
+   "doi": "0000",
+   "developer": "Benjamin Bonder",
+   "download_link": "0000",
+   "home_link": "0000"
+  },
+  "Leaf Phenotyping dataset": {
+   "organ": "rosette",
+   "numimages": "284",
+   "groundtruth": "yes",
+   "pmid": "0000",
+   "doi": "10.1016/j.patrec.2015.10.013",
+   "developer": "Scharr, Tsaftaris, Minervini",
+   "download_link": "http://www.plant-phenotyping.org/datasets-download",
+   "home_link": "http://www.plant-phenotyping.org/datasets-home"
+  },
+  "Setaria shoot dataset [deptricated]": {
+   "organ": "shoot",
+   "numimages": "79200",
+   "groundtruth": "yes",
+   "pmid": "26099924",
+   "doi": "0000",
+   "developer": "Danforth Center",
+   "download_link": "0000",
+   "home_link": "0000"
+  },
+  "Root gravitropism dataset": {
+   "organ": "single-root",
+   "numimages": "1200000",
+   "groundtruth": "yes",
+   "pmid": "23979570",
+   "doi": "0000",
+   "developer": "Danforth Center",
+   "download_link": "http://phytomorph.wisc.edu/download/index.php",
+   "home_link": "http://phytomorph.wisc.edu/download/index.php"
+  },
+  "Wheat root diversity panel [deptricated]": {
+   "organ": "root-system",
+   "numimages": "3190",
+   "groundtruth": "no",
+   "pmid": "-1",
+   "doi": "0000",
+   "developer": "Kamal Khadka",
+   "download_link": "0000",
+   "home_link": "0000"
+  },
+  "Rice root Gellan dataset": {
+   "organ": "root-system",
+   "numimages": "57000",
+   "groundtruth": "no",
+   "pmid": "23580618",
+   "doi": "0000",
+   "developer": "Christopher Topp @ Duke University",
+   "download_link": "http://www.danforthcenter.org/scientists-research/principal-investigators/chris-topp/resources",
+   "home_link": "http://www.danforthcenter.org/scientists-research/principal-investigators/chris-topp/resources"
+  },
+  "University of Arizona campus arboretum [deptricated]": {
+   "organ": "leaf",
+   "numimages": "66",
+   "groundtruth": "no",
+   "pmid": "21073643",
+   "doi": "0000",
+   "developer": "Benjamin Blonder",
+   "download_link": "0000",
+   "home_link": "0000"
+  },
+  "Kosnipata Valley (CHAMBASA elevation gradient) leaves [deptricated]": {
+   "organ": "leaf",
+   "numimages": "1529",
+   "groundtruth": "no",
+   "pmid": "-1",
+   "doi": "0000",
+   "developer": "Benjamin Blonder",
+   "download_link": "0000",
+   "home_link": "0000"
+  },
+  "Plants database": {
+   "organ": "flower",
+   "numimages": "309525",
+   "groundtruth": "no",
+   "pmid": "-1",
+   "doi": "0000",
+   "developer": "The National Gardening Association",
+   "download_link": "http://garden.org/plants/group/",
+   "home_link": "http://garden.org/plants/group/"
+  },
+  "POLEN23E": {
+   "organ": "pollen",
+   "numimages": "790",
+   "groundtruth": "no",
+   "pmid": "-1",
+   "doi": "",
+   "developer": "",
+   "download_link": "https://figshare.com/articles/POLEN23E/1525086",
+   "home_link": "https://figshare.com/articles/POLEN23E/1525086"
+  },
+  "PalDal": {
+   "organ": "pollen",
+   "numimages": "1000",
+   "groundtruth": "no",
+   "pmid": "-1",
+   "doi": "",
+   "developer": "Division of Structural and Functional Botany @ the University of Vienna",
+   "download_link": "https://www.paldat.org/",
+   "home_link": "https://www.paldat.org/"
+  },
+  "Pollen and Spore Image Database": {
+   "organ": "pollen",
+   "numimages": "700",
+   "groundtruth": "no",
+   "pmid": "-1",
+   "doi": "https://doi.org/10.1016/j.quaint.2016.07.038",
+   "developer": "Department of Palynology and Climate Dynamics @ Georg-August-University Goettingen",
+   "download_link": "https://www.uni-goettingen.de/en/databases+and+collections/97306.html",
+   "home_link": "https://www.uni-goettingen.de/en/atlas+of+pollen+and+spores+and+their+parent+taxa+of+mt+kilimanjaro+and+tropical+east+africa/542430.html"
+  },
+  "PollenAtlas": {
+   "organ": "pollen",
+   "numimages": "2394",
+   "groundtruth": "no",
+   "pmid": "-1",
+   "doi": "",
+   "developer": "",
+   "download_link": "http://pollen.tstebler.ch/MediaWiki/index.php?title=Pollenatlas&setlang=en-gb",
+   "home_link": "http://pollen.tstebler.ch/MediaWiki/index.php?title=Pollenatlas&setlang=en-gb"
+  },
+  "Sorghum Canopy Dataset": {
+   "organ": "Canopy",
+   "numimages": "10 000 000",
+   "groundtruth": "Yes",
+   "pmid": "",
+   "doi": "https://doi.org/10.1145/3219104.3219152",
+   "developer": "David LeBauer, Burnette, M.A., Demieville, J., Fahlgren, N., French, A.N., Garnett, R., Hu, Z., Huynh, K., Kooper, R., Li, Z., Maimaitijiang, M., Mao, J., Mockler, T.C., Morris, G.P., Newcomb, M., Ottman, M., Ozersky, P., Paheding, S., Pauli, D., Pless, R., Qin, W., Riemer, K., Rohde, G.S., Rooney, W.L., Sagan, V., Shakoor, N., Stylianou, A., Thorp, K., Ward, R., White, J.W., Willis, C., and Zender C.S.",
+   "download_link": "https://doi.org/10.5061/dryad.4b8gtht99",
+   "home_link": "https://datadryad.org/dataset/doi:10.5061/dryad.4b8gtht99"
+  },
+  "ColourQuant Dataset": {
+   "organ": "Leaves",
+   "numimages": "70 000",
+   "groundtruth": "No",
+   "pmid": "",
+   "doi": "10.5281/zenodo.4421753",
+   "developer": "Margaret Frank,  Li Mao, Coneva Viktoriya,  Clark David, Chitwood Daniel",
+   "download_link": "https://github.com/maoli0923/ColourQuant",
+   "home_link": "https://zenodo.org/records/4421754#.X_Yh7ulKhTY"
+  },
+  "GigaScience Database": {
+   "organ": "Leaves",
+   "numimages": "",
+   "groundtruth": "Yes",
+   "pmid": "",
+   "doi": "https://doi.org/10.1093/gigascience/giw008",
+   "developer": "Dan Chitwood",
+   "download_link": "https://github.com/DanChitwood/PassifloraLeaves",
+   "home_link": "http://gigadb.org/dataset/100251"
+  }
+ }
+ }
+}

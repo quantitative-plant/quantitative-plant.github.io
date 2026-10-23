@@ -1,0 +1,27 @@
+---
+import Base from '../../layouts/Base.astro';
+import Catalog from '../../components/Catalog.astro';
+import { getModels } from '../../lib/content';
+import { ORGANS, PLATFORMS, LICENSES, SCALES, MODEL_CATEGORIES } from '../../data/vocab';
+const items = await getModels();
+const facets = [
+  { key: 'category', title: 'Model type', get: (e: any) => e.data.category, dict: MODEL_CATEGORIES, open: true },
+  { key: 'organ', title: 'Plant part', get: (e: any) => e.data.organs, dict: ORGANS, open: true },
+  { key: 'scale', title: 'Scale', get: (e: any) => e.data.scales, dict: SCALES, open: true },
+  { key: 'prediction', title: 'Predicts', get: (e: any) => e.data.predictions },
+  { key: 'species', title: 'Species', get: (e: any) => e.data.species },
+  { key: 'language', title: 'Language', get: (e: any) => e.data.languages },
+  { key: 'integration', title: 'Integrated in', get: (e: any) => e.data.integration },
+  { key: 'license', title: 'License', get: (e: any) => e.data.license, dict: LICENSES },
+  { key: 'platform', title: 'Platform', get: (e: any) => e.data.platforms, dict: PLATFORMS },
+];
+---
+<Base title="Models" description={`${items.length} plant models — functional–structural, crop and structural models — filterable by type, scale, plant part and predicted processes.`}>
+  <div class="container">
+    <div style="padding-top:2rem">
+      <h1>Models</h1>
+      <p class="muted" style="margin:0">Plant models, from cells to fields: functional–structural plant models, crop simulation models and more.</p>
+    </div>
+    <Catalog entries={items} base="/model" facets={facets} noun="models" />
+  </div>
+</Base>

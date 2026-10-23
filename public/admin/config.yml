@@ -1,0 +1,873 @@
+# Configuration de l'éditeur web (Decap CMS) — https://decapcms.org/docs/configuration-options/
+# Généré une fois puis éditable à la main. Les champs doivent rester alignés sur src/content.config.ts.
+#
+# • En local : `npm run cms` (lance decap-server) + `npm run dev`, puis http://localhost:4321/admin/
+#   → l'éditeur lit/écrit directement les fichiers du disque, sans GitHub.
+# • En local, les modifications sont publiées directement (le mode « editorial workflow » ne s'applique qu'en ligne).
+# • En ligne : connexion GitHub ; chaque enregistrement ouvre une pull request à valider.
+#   TODO : remplacer `repo` et `base_url` (proxy OAuth, voir README §7 Éditeur web).
+#
+backend:
+  name: github
+  repo: quantitative-plant/quantitative-plant.github.io
+  branch: main
+  base_url: https://pia-cms-auth.example.workers.dev
+  commit_messages:
+    create: Add {{collection}} “{{slug}}”
+    update: Update {{collection}} “{{slug}}”
+    uploadMedia: Upload “{{path}}”
+local_backend: true
+publish_mode: editorial_workflow
+site_url: https://www.quantitative-plant.org
+logo_url: /logo.svg
+media_folder: public/uploads
+public_folder: /uploads
+collections:
+- name: tools
+  label: Software
+  label_singular: Tool
+  description: Software tools. Fill in the fields, add a logo and screenshots, then Save. With the editorial workflow, publishing opens a pull request for review.
+  folder: src/content/tools
+  path: '{{slug}}/index'
+  extension: md
+  format: frontmatter
+  create: true
+  delete: false
+  slug: '{{slug}}'
+  identifier_field: title
+  summary: '{{title}}  ·  {{status}}'
+  sortable_fields:
+  - title
+  - added
+  view_filters:
+  - label: Drafts
+    field: draft
+    pattern: true
+  - label: Not verified recently
+    field: status
+    pattern: unverified
+  media_folder: ''
+  public_folder: .
+  fields:
+  - &id001
+    name: title
+    label: Name
+    widget: string
+    required: true
+  - &id002
+    name: added
+    label: Listed since
+    widget: datetime
+    date_format: YYYY-MM-DD
+    time_format: false
+    format: YYYY-MM-DD
+    required: false
+  - &id003
+    name: draft
+    label: Draft (hidden on the public site)
+    widget: boolean
+    default: false
+    required: false
+  - name: status
+    label: Status
+    widget: select
+    multiple: false
+    required: true
+    options:
+    - label: Active (checked recently)
+      value: active
+    - label: Not verified recently
+      value: unverified
+    - label: Unmaintained
+      value: unmaintained
+    - label: Deprecated
+      value: deprecated
+    default: active
+  - name: last_checked
+    label: Last checked
+    widget: datetime
+    date_format: YYYY-MM-DD
+    time_format: false
+    format: YYYY-MM-DD
+    required: false
+  - name: organs
+    label: Plant organ(s)
+    widget: select
+    multiple: true
+    required: true
+    options:
+    - label: Root system
+      value: root-system
+    - label: Single root
+      value: single-root
+    - label: Leaf
+      value: leaf
+    - label: Rosette
+      value: rosette
+    - label: Shoot
+      value: shoot
+    - label: Canopy
+      value: canopy
+    - label: Hypocotyl
+      value: hypocotyl
+    - label: Stem
+      value: stem
+    - label: Tissue
+      value: tissue
+    - label: Flower
+      value: flower
+    - label: Fruit
+      value: fruit
+    - label: Seed
+      value: seed
+    - label: Pollen
+      value: pollen
+    - label: Cell
+      value: cell
+    - label: Fungi
+      value: fungi
+    - label: Whole plant
+      value: plant
+    - label: General
+      value: general
+    - label: Simulation
+      value: simulation
+  - name: measurements
+    label: Measurements
+    widget: select
+    multiple: true
+    required: false
+    options:
+    - 2d - 5d registration
+    - 3d point cloud
+    - 3d scan from a root
+    - 3d-reconstruction
+    - anatomy
+    - angle
+    - aspect ratio
+    - callose-deposition
+    - cell-size
+    - characteristics of seeds
+    - circularity
+    - classification
+    - color
+    - color intensities
+    - color measurements
+    - convex hull area
+    - convex-hull
+    - count
+    - curvature
+    - damages
+    - data-analysis
+    - data-visualization
+    - depth
+    - diameter
+    - disease
+    - eccentricity
+    - equivalent diameter
+    - establishment‐related traits
+    - extent
+    - filled area
+    - fluorescence
+    - germination
+    - graph skeletonization
+    - gravitropism
+    - growth
+    - height
+    - insertion
+    - insertion-angle
+    - lai
+    - leaf area
+    - leaf area index (lai)
+    - leaf counting and labeling
+    - length
+    - localisation
+    - major axis length
+    - minor axis length
+    - morphological gradient
+    - morphometric
+    - movement
+    - n-branches
+    - n-cells
+    - n-filaments
+    - n-plasmodesmata
+    - n-ribs
+    - n-ring
+    - n-seeds
+    - n-spots
+    - n-teeth
+    - nitrogen content
+    - nodules
+    - number of seed
+    - number of seeds
+    - orientation
+    - perimeter
+    - qsm from the root
+    - quantitative charachteristics of wheat leaf pubescence
+    - ratiometric measurements of
+    - recognition
+    - root tip angle dynamics
+    - segmentation
+    - shape
+    - size
+    - size of seeds
+    - solidity
+    - specie
+    - stomata
+    - subplot simi-auto divide and 3d reconstruction reverse calculation
+    - surface
+    - topology
+    - tracking
+    - velocity-profile
+    - venation
+    - volume
+    - width
+    - yield
+    hint: Missing a value? Add it to the options list in public/admin/config.yml.
+  - name: automation
+    label: Automation
+    widget: select
+    multiple: true
+    required: false
+    options:
+    - label: Automated
+      value: automated
+    - label: Semi-automated
+      value: semi-automated
+    - label: Manual
+      value: manual
+  - name: platforms
+    label: Platforms
+    widget: select
+    multiple: true
+    required: false
+    options:
+    - label: Windows
+      value: windows
+    - label: macOS
+      value: macos
+    - label: Linux
+      value: linux
+    - label: Web
+      value: web
+    - label: iOS
+      value: ios
+    - label: Android
+      value: android
+  - name: requires
+    label: Requires
+    widget: list
+    required: false
+    hint: e.g. python, imagej, matlab, r
+    field:
+      name: value
+      label: Value
+      widget: string
+    summary: '{{fields.value}}'
+  - name: license
+    label: License
+    widget: select
+    multiple: true
+    required: false
+    options:
+    - label: Open source
+      value: open-source
+    - label: Free
+      value: freeware
+    - label: Commercial
+      value: commercial
+    - label: On request
+      value: on-request
+  - name: license_name
+    label: License name
+    widget: string
+    required: false
+    hint: e.g. GPL-3.0, MIT, CC BY 4.0
+  - name: source_code
+    label: Source code repository
+    widget: string
+    required: false
+    pattern:
+    - ^https?://
+    - Must start with http:// or https://
+  - name: input_formats
+    label: Input image formats
+    widget: list
+    required: false
+    hint: e.g. tiff, png, jpg
+    field:
+      name: value
+      label: Value
+      widget: string
+    summary: '{{fields.value}}'
+  - name: export_formats
+    label: Output formats
+    widget: list
+    required: false
+    hint: e.g. csv, rsml
+    field:
+      name: value
+      label: Value
+      widget: string
+    summary: '{{fields.value}}'
+  - name: species
+    label: Species
+    widget: list
+    required: false
+    hint: e.g. any, arabidopsis, maize
+    field:
+      name: value
+      label: Value
+      widget: string
+    summary: '{{fields.value}}'
+  - &id004
+    name: developer
+    label: Developer / lab / institution
+    widget: string
+    required: false
+  - &id005
+    name: website
+    label: Website
+    widget: string
+    required: false
+    pattern:
+    - ^https?://
+    - Must start with http:// or https://
+  - &id006
+    name: download
+    label: Download page
+    widget: string
+    required: false
+    pattern:
+    - ^https?://
+    - Must start with http:// or https://
+  - &id007
+    name: doi
+    label: DOI of the reference paper
+    widget: string
+    required: false
+    hint: e.g. 10.1104/pp.114.243519 (without https://doi.org/)
+    pattern:
+    - ^10\.
+    - A DOI starts with 10.
+  - &id008
+    name: pmid
+    label: PubMed ID
+    widget: string
+    required: false
+    pattern:
+    - ^\d+$
+    - Digits only
+  - &id009
+    name: citation
+    label: Citation
+    widget: text
+    required: false
+    hint: Authors — Title — Journal, Year
+  - &id010
+    name: description_source
+    label: Description source
+    widget: string
+    required: false
+    hint: Where the description text comes from
+  - &id011
+    name: logo
+    label: Logo (square)
+    widget: image
+    required: false
+    choose_url: false
+  - &id012
+    name: gallery
+    label: Screenshots
+    widget: list
+    required: false
+    collapsed: true
+    summary: '{{fields.caption}}'
+    fields:
+    - name: src
+      label: Image
+      widget: image
+      choose_url: false
+    - name: caption
+      label: Caption / source
+      widget: string
+      required: false
+  - &id013
+    name: body
+    label: Description
+    widget: markdown
+    required: false
+    buttons:
+    - bold
+    - italic
+    - link
+    - heading-two
+    - bulleted-list
+    - numbered-list
+    editor_components: []
+    hint: Short description of what it does, inputs and outputs.
+  - &id014
+    name: slug
+    label: slug
+    widget: hidden
+    required: false
+  - &id015
+    name: legacy_url
+    label: legacy_url
+    widget: hidden
+    required: false
+  editor:
+    preview: false
+- name: datasets
+  label: Datasets
+  label_singular: Dataset
+  description: Public plant image datasets.
+  folder: src/content/datasets
+  path: '{{slug}}/index'
+  extension: md
+  format: frontmatter
+  create: true
+  delete: false
+  slug: '{{slug}}'
+  identifier_field: title
+  summary: '{{title}}'
+  sortable_fields:
+  - title
+  - added
+  view_filters:
+  - label: Drafts
+    field: draft
+    pattern: true
+  media_folder: ''
+  public_folder: .
+  fields:
+  - *id001
+  - *id002
+  - *id003
+  - name: status
+    label: Status
+    widget: select
+    multiple: false
+    required: true
+    options:
+    - label: Active (checked recently)
+      value: active
+    - label: Not verified recently
+      value: unverified
+    - label: Unmaintained
+      value: unmaintained
+    - label: Deprecated
+      value: deprecated
+    default: active
+  - name: organs
+    label: Plant organ(s)
+    widget: select
+    multiple: true
+    required: true
+    options:
+    - label: Root system
+      value: root-system
+    - label: Single root
+      value: single-root
+    - label: Leaf
+      value: leaf
+    - label: Rosette
+      value: rosette
+    - label: Shoot
+      value: shoot
+    - label: Canopy
+      value: canopy
+    - label: Hypocotyl
+      value: hypocotyl
+    - label: Stem
+      value: stem
+    - label: Tissue
+      value: tissue
+    - label: Flower
+      value: flower
+    - label: Fruit
+      value: fruit
+    - label: Seed
+      value: seed
+    - label: Pollen
+      value: pollen
+    - label: Cell
+      value: cell
+    - label: Fungi
+      value: fungi
+    - label: Whole plant
+      value: plant
+    - label: General
+      value: general
+    - label: Simulation
+      value: simulation
+  - name: species
+    label: Species
+    widget: list
+    required: false
+    field:
+      name: value
+      label: Value
+      widget: string
+    summary: '{{fields.value}}'
+  - name: n_images
+    label: Number of images
+    widget: number
+    value_type: int
+    required: false
+  - name: n_images_text
+    label: Number of images (text)
+    widget: string
+    required: false
+    hint: Only if not an exact number, e.g. "over 50,000", "variable"
+  - name: ground_truth
+    label: Includes ground-truth annotations
+    widget: boolean
+    default: false
+    required: false
+  - name: license_data
+    label: Data license
+    widget: string
+    required: false
+    hint: e.g. CC-BY 4.0
+  - *id004
+  - *id005
+  - *id006
+  - *id007
+  - *id008
+  - name: paper_url
+    label: Paper URL (if no DOI)
+    widget: string
+    required: false
+  - *id009
+  - *id010
+  - *id011
+  - *id012
+  - *id013
+  - *id014
+  - *id015
+  editor:
+    preview: false
+- name: models
+  label: Models
+  label_singular: Model
+  description: Plant models (FSPM, crop models…). Fill in the fields and Save.
+  folder: src/content/models
+  path: '{{slug}}/index'
+  extension: md
+  format: frontmatter
+  create: true
+  delete: false
+  slug: '{{slug}}'
+  identifier_field: title
+  summary: '{{title}}  ·  {{category}}'
+  sortable_fields:
+  - title
+  - added
+  view_filters:
+  - label: Drafts
+    field: draft
+    pattern: true
+  - label: Not verified recently
+    field: status
+    pattern: unverified
+  media_folder: ''
+  public_folder: .
+  fields:
+  - name: title
+    label: Name
+    widget: string
+    required: true
+  - name: added
+    label: Listed since
+    widget: datetime
+    date_format: YYYY-MM-DD
+    time_format: false
+    format: YYYY-MM-DD
+    required: false
+  - name: draft
+    label: Draft (hidden on the public site)
+    widget: boolean
+    default: false
+    required: false
+  - name: status
+    label: Status
+    widget: select
+    multiple: false
+    required: true
+    options:
+    - label: Active (checked recently)
+      value: active
+    - label: Not verified recently
+      value: unverified
+    - label: Unmaintained
+      value: unmaintained
+    - label: Deprecated
+      value: deprecated
+    default: active
+  - name: last_checked
+    label: Last checked
+    widget: datetime
+    date_format: YYYY-MM-DD
+    time_format: false
+    format: YYYY-MM-DD
+    required: false
+  - name: category
+    label: Model type
+    widget: select
+    multiple: true
+    required: false
+    options:
+    - label: FSPM — functional–structural plant model
+      value: FSPM
+    - label: FSM — functional–structural model
+      value: FSM
+    - label: FPM — functional plant model
+      value: FPM
+    - label: SPM — structural plant model
+      value: SPM
+    - label: CSM — crop simulation model
+      value: CSM
+    - label: gbCSM — gene-based crop model
+      value: gbCSM
+    - label: ODE
+      value: ODE
+    - label: PDE
+      value: PDE
+    - label: Statistical
+      value: Statistical
+    - label: Process-based
+      value: Process-based
+    - label: Stoichiometric
+      value: Stoichiometric
+    - label: Geometric
+      value: Geometric
+  - name: organs
+    label: Plant part(s)
+    widget: select
+    multiple: true
+    required: true
+    options:
+    - label: Root system
+      value: root-system
+    - label: Single root
+      value: single-root
+    - label: Leaf
+      value: leaf
+    - label: Rosette
+      value: rosette
+    - label: Shoot
+      value: shoot
+    - label: Canopy
+      value: canopy
+    - label: Hypocotyl
+      value: hypocotyl
+    - label: Stem
+      value: stem
+    - label: Tissue
+      value: tissue
+    - label: Flower
+      value: flower
+    - label: Fruit
+      value: fruit
+    - label: Seed
+      value: seed
+    - label: Pollen
+      value: pollen
+    - label: Cell
+      value: cell
+    - label: Fungi
+      value: fungi
+    - label: Whole plant
+      value: plant
+    - label: General
+      value: general
+    - label: Simulation
+      value: simulation
+  - name: scales
+    label: Scale(s)
+    widget: select
+    multiple: true
+    required: false
+    options:
+    - label: Cell
+      value: cell
+    - label: Organ
+      value: organ
+    - label: Whole plant
+      value: whole-plant
+    - label: Field
+      value: field
+    - label: Regional
+      value: regional
+    - label: Global
+      value: global
+  - name: predictions
+    label: Predicts
+    widget: list
+    required: false
+    field:
+      name: value
+      label: Value
+      widget: string
+    summary: '{{fields.value}}'
+    hint: e.g. root system architecture, flux of water, yield
+  - name: species
+    label: Species
+    widget: list
+    required: false
+    field:
+      name: value
+      label: Value
+      widget: string
+    summary: '{{fields.value}}'
+  - name: languages
+    label: Programming languages
+    widget: list
+    required: false
+    field:
+      name: value
+      label: Value
+      widget: string
+    summary: '{{fields.value}}'
+    hint: e.g. Python, C++, Fortran
+  - name: platforms
+    label: Platforms
+    widget: select
+    multiple: true
+    required: false
+    options:
+    - label: Windows
+      value: windows
+    - label: macOS
+      value: macos
+    - label: Linux
+      value: linux
+    - label: Web
+      value: web
+    - label: iOS
+      value: ios
+    - label: Android
+      value: android
+  - name: license
+    label: License
+    widget: select
+    multiple: true
+    required: false
+    options:
+    - label: Open source
+      value: open-source
+    - label: Free
+      value: freeware
+    - label: Commercial
+      value: commercial
+    - label: On request
+      value: on-request
+  - name: license_name
+    label: License name
+    widget: string
+    required: false
+    hint: e.g. GPL-3.0, MIT, CC BY 4.0
+  - name: integration
+    label: Integrated in platform
+    widget: list
+    required: false
+    field:
+      name: value
+      label: Value
+      widget: string
+    summary: '{{fields.value}}'
+    hint: e.g. OpenAlea, GroIMP, DSSAT
+  - name: source_code
+    label: Source code repository
+    widget: string
+    required: false
+    pattern:
+    - ^https?://
+    - Must start with http:// or https://
+  - name: developer
+    label: Developer / lab / institution
+    widget: string
+    required: false
+  - name: website
+    label: Website
+    widget: string
+    required: false
+    pattern:
+    - ^https?://
+    - Must start with http:// or https://
+  - name: download
+    label: Download page
+    widget: string
+    required: false
+    pattern:
+    - ^https?://
+    - Must start with http:// or https://
+  - name: doi
+    label: DOI of the reference paper
+    widget: string
+    required: false
+    hint: e.g. 10.1104/pp.114.243519 (without https://doi.org/)
+    pattern:
+    - ^10\.
+    - A DOI starts with 10.
+  - name: pmid
+    label: PubMed ID
+    widget: string
+    required: false
+    pattern:
+    - ^\d+$
+    - Digits only
+  - name: citation
+    label: Citation
+    widget: text
+    required: false
+    hint: Authors — Title — Journal, Year
+  - name: description_source
+    label: Description source
+    widget: string
+    required: false
+    hint: Where the description text comes from
+  - name: logo
+    label: Logo (square)
+    widget: image
+    required: false
+    choose_url: false
+  - name: gallery
+    label: Screenshots
+    widget: list
+    required: false
+    collapsed: true
+    summary: '{{fields.caption}}'
+    fields:
+    - name: src
+      label: Image
+      widget: image
+      choose_url: false
+    - name: caption
+      label: Caption / source
+      widget: string
+      required: false
+  - name: body
+    label: Description
+    widget: markdown
+    required: false
+    buttons:
+    - bold
+    - italic
+    - link
+    - heading-two
+    - bulleted-list
+    - numbered-list
+    editor_components: []
+    hint: Short description of what it does, inputs and outputs.
+  - name: slug
+    label: slug
+    widget: hidden
+    required: false
+  - name: legacy_url
+    label: legacy_url
+    widget: hidden
+    required: false
+  editor:
+    preview: false

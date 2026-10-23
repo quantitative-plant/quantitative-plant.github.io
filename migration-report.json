@@ -1,0 +1,58 @@
+{
+ "tools": {
+  "migrated": 180,
+  "drafts": [
+   "disto-pic",
+   "leaf-shape-analysis",
+   "stomatalcounter"
+  ],
+  "duplicates": [
+   "174-image-harvest (doublon de 011-image-harvest)",
+   "176-maize-kernel-ear-cob-analysis (doublon de 010-maize-kernel-ear-cob-analysis)"
+  ],
+  "issues": [
+   "image: pas de logo",
+   "lamina2shape: aucun lien",
+   "leaf-angle-distribution-toolbox: aucun lien",
+   "leaf-shape-analysis: pas de logo"
+  ]
+ },
+ "datasets": {
+  "migrated": 28,
+  "drafts": [],
+  "duplicates": [],
+  "issues": [
+   "wheat-spikelet-dataset: pas de logo",
+   "maize-root: pas de logo",
+   "cowpea-roots: pas de logo",
+   "rice-roots: pas de logo",
+   "leaf-cleared-arabidopsis: pas de logo",
+   "leaf-cleared-smithsionian: pas de logo",
+   "leaf-cleared-costa-rica: pas de logo",
+   "leaf-phenotyping-dataset: pas de logo",
+   "setaria-shoot: pas de logo",
+   "root-gravitropism: pas de logo",
+   "wheat-root-dataset: pas de logo",
+   "wheat-hydroponic: pas de logo",
+   "rice-root-gellan: pas de logo",
+   "leaf-arizona-u: pas de logo",
+   "leaf-kosnipata: pas de logo",
+   "plant-database: pas de logo",
+   "polen23e: pas de logo",
+   "paldal: pas de logo",
+   "pollen-and-spore-image-database: pas de logo",
+   "pollenatlas: pas de logo",
+   "apple-leaf-dataset: pas de logo",
+   "maize-lateral-root-dataset: pas de logo",
+   "sorghum-shoot-dataset-nitrogen-treatments: pas de logo",
+   "3d-magnetic-resonance-images-of-barley-roots: pas de logo"
+  ]
+ },
+ "models": {
+  "migrated": 0,
+  "drafts": [],
+  "duplicates": [],
+  "issues": [],
+  "skipped": true
+ }
+}
