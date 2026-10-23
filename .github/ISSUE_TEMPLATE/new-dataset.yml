@@ -1,0 +1,35 @@
+name: Submit a dataset
+description: Propose a public plant image dataset
+title: "[New dataset] "
+labels: [submission, dataset]
+body:
+  - type: input
+    id: title
+    attributes: { label: Dataset name }
+    validations: { required: true }
+  - type: input
+    id: download
+    attributes: { label: Download / landing page (Zenodo, figshare, IDR…), placeholder: https:// }
+    validations: { required: true }
+  - type: input
+    id: doi
+    attributes: { label: DOI of the dataset or paper }
+  - type: input
+    id: species
+    attributes: { label: Species }
+  - type: input
+    id: organs
+    attributes: { label: Plant organ(s) }
+  - type: input
+    id: n_images
+    attributes: { label: Number of images }
+  - type: dropdown
+    id: ground_truth
+    attributes: { label: Ground-truth annotations included?, options: ["yes", "no"] }
+  - type: input
+    id: license
+    attributes: { label: Data license, placeholder: CC-BY 4.0 }
+  - type: textarea
+    id: description
+    attributes: { label: Description }
+    validations: { required: true }

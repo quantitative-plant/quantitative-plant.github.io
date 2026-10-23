@@ -1,0 +1,14 @@
+name: Report a problem
+description: Broken link, outdated information, wrong category…
+labels: [correction]
+body:
+  - type: input
+    id: url
+    attributes: { label: Page concerned, placeholder: https://www.quantitative-plant.org/software/... }
+  - type: dropdown
+    id: kind
+    attributes: { label: Type of problem, options: [Broken link, Outdated information, Wrong category or tags, Tool is no longer maintained, Copyright / image removal, Other] }
+  - type: textarea
+    id: details
+    attributes: { label: Details }
+    validations: { required: true }

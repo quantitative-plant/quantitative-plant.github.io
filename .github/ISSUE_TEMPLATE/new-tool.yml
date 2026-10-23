@@ -1,0 +1,64 @@
+name: Submit a software tool
+description: Propose a new software tool for the catalogue
+title: "[New tool] "
+labels: [submission, tool]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for contributing! A curator will review your submission and turn it into a catalogue entry.
+  - type: input
+    id: title
+    attributes: { label: Tool name }
+    validations: { required: true }
+  - type: input
+    id: website
+    attributes: { label: Website, placeholder: https:// }
+    validations: { required: true }
+  - type: input
+    id: source
+    attributes: { label: Source code repository (if any), placeholder: https://github.com/... }
+  - type: input
+    id: doi
+    attributes: { label: DOI of the reference paper, placeholder: 10.xxxx/xxxx }
+  - type: input
+    id: developer
+    attributes: { label: Developer / lab / institution }
+  - type: checkboxes
+    id: organs
+    attributes:
+      label: Plant organ(s)
+      options:
+        - label: root-system
+        - label: single-root
+        - label: leaf
+        - label: rosette
+        - label: shoot
+        - label: canopy
+        - label: flower / fruit / seed
+        - label: cell
+        - label: whole plant / general
+  - type: input
+    id: measurements
+    attributes: { label: Measurements, placeholder: "e.g. length, surface, angle, count, growth, 3D-reconstruction" }
+  - type: dropdown
+    id: automation
+    attributes: { label: Automation level, options: [automated, semi-automated, manual] }
+  - type: checkboxes
+    id: platforms
+    attributes:
+      label: Platforms
+      options: [{ label: windows }, { label: macos }, { label: linux }, { label: web }, { label: ios }, { label: android }]
+  - type: dropdown
+    id: license
+    attributes: { label: License, options: [open-source, freeware, commercial, on-request] }
+  - type: textarea
+    id: description
+    attributes: { label: Short description, description: 1–2 paragraphs. You can drag & drop a logo and screenshots here. }
+    validations: { required: true }
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Permissions
+      options:
+        - label: I am allowed to share these images and agree that the entry text is published under ODC-By 1.0.
+          required: true
